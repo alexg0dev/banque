@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banque du Liban - Comptes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Skip to main content link for screen readers -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-blue-700 focus:text-white focus:z-50">
+    Passer au contenu principal
+  </a>
+
+  <div class="max-w-md mx-auto bg-white shadow-md min-h-screen relative pb-20">
+    <!-- Header -->
+    <header class="bg-blue-700 text-white p-4 flex items-center justify-between" role="banner">
+      <div>
+        <h1 class="text-xl font-bold">Banque du Liban</h1>
+        <p class="text-xs">Service Clientèle Premium</p>
+      </div>
+      <div class="text-right">
+        <p class="text-xs" aria-label="Date actuelle">22 Mars 2025</p>
+        <p class="text-xs" aria-label="Heure actuelle">12:54</p>
+      </div>
+    </header>
+
+    <!-- Page Title -->
+    <section class="p-4 bg-blue-50 border-b border-gray-300">
+      <h1 class="text-xl font-bold text-blue-800">Vos Comptes</h1>
+      <p class="text-xs text-gray-600">Gérez vos comptes et consultez vos transactions</p>
+    </section>
+
+    <main id="main-content">
+      <!-- Account Summary -->
+      <section class="p-4 bg-white border-b border-gray-200" aria-labelledby="accounts-heading">
+        <h2 id="accounts-heading" class="text-lg font-bold text-gray-800 mb-3">Résumé des Comptes</h2>
+        
+        <div class="bg-white rounded-lg p-3 shadow-sm mb-3 border border-gray-200">
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="font-medium text-blue-800">Compte Courant Premium</p>
+              <p class="text-xs text-gray-500">LB82 0999 7800 0012 3456 7890</p>
+            </div>
+            <p class="font-bold">$2,742,592.47</p>
+          </div>
+          <div class="mt-2 pt-2 border-t border-gray-100">
+            <button class="text-xs text-blue-600 mr-3 focus:outline-none focus:underline">Détails</button>
+            <button class="text-xs text-blue-600 focus:outline-none focus:underline">Relevés</button>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-lg p-3 shadow-sm border border-gray-200">
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="font-medium text-blue-800">Compte d'Investissement</p>
+              <p class="text-xs text-gray-500">LB82 0999 7800 0012 3456 7891</p>
+            </div>
+            <p class="font-bold">$8,996,000.00</p>
+          </div>
+          <div class="mt-2 pt-2 border-t border-gray-100">
+            <button class="text-xs text-blue-600 mr-3 focus:outline-none focus:underline">Détails</button>
+            <button class="text-xs text-blue-600 focus:outline-none focus:underline">Relevés</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Account Actions -->
+      <section class="p-4 bg-white border-b border-gray-200">
+        <h2 class="text-lg font-bold text-gray-800 mb-3">Actions</h2>
+        
+        <div class="grid grid-cols-2 gap-3">
+          <button class="flex items-center p-3 bg-blue-50 rounded-lg border border-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center mr-3">
+              <i class="fas fa-exchange-alt text-white"></i>
+            </div>
+            <span class="text-sm">Transfert entre comptes</span>
+          </button>
+          
+          <button class="flex items-center p-3 bg-blue-50 rounded-lg border border-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center mr-3">
+              <i class="fas fa-file-alt text-white"></i>
+            </div>
+            <span class="text-sm">Relevés bancaires</span>
+          </button>
+          
+          <button class="flex items-center p-3 bg-blue-50 rounded-lg border border-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center mr-3">
+              <i class="fas fa-plus text-white"></i>
+            </div>
+            <span class="text-sm">Nouveau compte</span>
+          </button>
+          
+          <button class="flex items-center p-3 bg-blue-50 rounded-lg border border-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center mr-3">
+              <i class="fas fa-cog text-white"></i>
+            </div>
+            <span class="text-sm">Paramètres</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Recent Transactions -->
+      <section class="p-4 bg-white" aria-labelledby="transactions-heading">
+        <div class="flex justify-between items-center mb-3">
+          <h2 id="transactions-heading" class="text-lg font-bold text-gray-800">Toutes les Transactions</h2>
+          <div>
+            <button class="text-xs text-blue-600 focus:outline-none focus:underline">Filtrer</button>
+          </div>
+        </div>
+        
+        <div class="border-b border-gray-200 py-3">
+          <div class="flex justify-between">
+            <div>
+              <p class="font-medium">Dépôt International - UBS Zurich</p>
+              <p class="text-xs text-gray-500">20 Mars 2025 - 09:42</p>
+              <p class="text-xs text-gray-400">Réf: INT-CH78943215</p>
+              <p class="text-xs text-blue-600 mt-1">Motif: Transfert de fonds d'investissement</p>
+            </div>
+            <p class="text-green-600 font-bold">+$1,250,000.00</p>
+          </div>
+        </div>
+        
+        <div class="border-b border-gray-200 py-3">
+          <div class="flex justify-between">
+            <div>
+              <p class="font-medium">Four Seasons Hotel Beirut</p>
+              <p class="text-xs text-gray-500">18 Mars 2025 - 21:15</p>
+              <p class="text-xs text-gray-400">Carte Platine ****8742</p>
+              <p class="text-xs text-blue-600 mt-1">Motif: Réception d'affaires - Dîner avec investisseurs</p>
+            </div>
+            <p class="text-red-600 font-bold">-$12,450.00</p>
+          </div>
+        </div>
+        
+        <div class="border-b border-gray-200 py-3">
+          <div class="flex justify-between">
+            <div>
+              <p class="font-medium">Transfert - Credit Suisse AG</p>
+              <p class="text-xs text-gray-500">15 Mars 2025 - 14:30</p>
+              <p class="text-xs text-gray-400">Réf: SWIFT-LB78943290</p>
+              <p class="text-xs text-blue-600 mt-1">Motif: Acquisition de parts dans société immobilière</p>
+            </div>
+            <p class="text-red-600 font-bold">-$500,000.00</p>
+          </div>
+        </div>
+        
+        <div class="border-b border-gray-200 py-3">
+          <div class="flex justify-between">
+            <div>
+              <p class="font-medium">Rolls-Royce Motor Cars Beirut</p>
+              <p class="text-xs text-gray-500">10 Mars 2025 - 11:25</p>
+              <p class="text-xs text-gray-400">Virement bancaire #RR-25789</p>
+              <p class="text-xs text-blue-600 mt-1">Motif: Achat véhicule Phantom Series II</p>
+            </div>
+            <p class="text-red-600 font-bold">-$325,000.00</p>
+          </div>
+        </div>
+        
+        <div class="border-b border-gray-200 py-3">
+          <div class="flex justify-between">
+            <div>
+              <p class="font-medium">Hôtel Ritz Paris</p>
+              <p class="text-xs text-gray-500">5 Mars 2025 - 09:15</p>
+              <p class="text-xs text-gray-400">Carte Platine ****8742</p>
+              <p class="text-xs text-blue-600 mt-1">Motif: Séjour d'affaires</p>
+            </div>
+            <p class="text-red-600 font-bold">-$28,750.00</p>
+          </div>
+        </div>
+        
+        <div class="mt-4 text-center">
+          <button class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            Afficher plus de transactions
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Navigation -->
+    <nav class="grid grid-cols-5 bg-white text-center p-1 text-gray-600 fixed bottom-0 w-full max-w-md border-t border-gray-200 shadow-md" aria-label="Navigation principale">
+      <a href="index.html" class="p-2 focus:outline-none focus:text-blue-700" aria-label="Accueil">
+        <i class="fas fa-home text-lg"></i>
+        <p class="text-xs mt-1">Accueil</p>
+      </a>
+      <a href="accounts.html" class="p-2 focus:outline-none focus:text-blue-700 text-blue-700" aria-label="Comptes" aria-current="page">
+        <i class="fas fa-wallet text-lg"></i>
+        <p class="text-xs mt-1">Comptes</p>
+      </a>
+      <a href="payments.html" class="p-2 focus:outline-none focus:text-blue-700" aria-label="Paiements">
+        <i class="fas fa-paper-plane text-lg"></i>
+        <p class="text-xs mt-1">Paiements</p>
+      </a>
+      <a href="investments.html" class="p-2 focus:outline-none focus:text-blue-700" aria-label="Investissements">
+        <i class="fas fa-chart-line text-lg"></i>
+        <p class="text-xs mt-1">Investir</p>
+      </a>
+      <a href="menu.html" class="p-2 focus:outline-none focus:text-blue-700" aria-label="Menu">
+        <i class="fas fa-bars text-lg"></i>
+        <p class="text-xs mt-1">Menu</p>
+      </a>
+    </nav>
+  </div>
+</body>
+</html>

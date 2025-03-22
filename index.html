@@ -3,18 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Banque du Liban - Mobile</title>
+  <title>Banque du Liban - Accueil</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    
+    .premium-card {
+      background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+    }
+  </style>
 </head>
-<body class="bg-gray-100 font-serif">
+<body class="bg-gray-100">
   <!-- Skip to main content link for screen readers -->
   <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-blue-700 focus:text-white focus:z-50">
     Passer au contenu principal
   </a>
 
-  <div class="max-w-md mx-auto bg-white shadow-md min-h-screen relative pb-16">
+  <div class="max-w-md mx-auto bg-white shadow-md min-h-screen relative pb-20">
     <!-- Header -->
-    <header class="bg-blue-800 text-white p-4 flex items-center justify-between" role="banner">
+    <header class="bg-blue-700 text-white p-4 flex items-center justify-between" role="banner">
       <div>
         <h1 class="text-xl font-bold">Banque du Liban</h1>
         <p class="text-xs">Service Clientèle Premium</p>
@@ -38,7 +48,7 @@
       <!-- Account Balance -->
       <section class="p-6 bg-white border-b border-gray-300" aria-labelledby="balance-heading">
         <h2 id="balance-heading" class="text-sm text-gray-600">Solde Total</h2>
-        <p id="total-balance" class="text-3xl font-bold text-blue-800">$42,738,915.84</p>
+        <p id="total-balance" class="text-3xl font-bold text-blue-800">$11,738,592.47</p>
         <div class="flex justify-between mt-2">
           <p class="text-xs text-gray-500">Dernière mise à jour: 22/03/2025 à 12:30</p>
           <button class="text-xs text-blue-600 underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded" aria-label="Voir les détails du solde">Détails ›</button>
@@ -46,42 +56,101 @@
       </section>
 
       <!-- Quick Actions -->
-      <section class="grid grid-cols-4 gap-1 p-3 bg-gray-50 border-b border-gray-300" aria-labelledby="quick-actions">
-        <h2 id="quick-actions" class="sr-only">Actions rapides</h2>
+      <section class="p-4 bg-white border-b border-gray-300" aria-labelledby="quick-actions">
+        <h2 id="quick-actions" class="text-sm font-medium text-gray-700 mb-3">Actions Rapides</h2>
         
-        <div class="text-center p-2">
-          <button class="w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg" aria-label="Faire un transfert">
-            <div class="w-12 h-12 bg-blue-700 rounded-full flex items-center justify-center mx-auto mb-1 shadow-md">
-              <span class="text-white text-lg" aria-hidden="true">$</span>
+        <div class="grid grid-cols-4 gap-2">
+          <div class="text-center">
+            <button class="w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg" aria-label="Faire un transfert">
+              <div class="w-14 h-14 bg-blue-700 rounded-full flex items-center justify-center mx-auto mb-1 shadow-md">
+                <i class="fas fa-exchange-alt text-white"></i>
+              </div>
+              <p class="text-xs font-medium">Transfert</p>
+            </button>
+          </div>
+          
+          <div class="text-center">
+            <button id="payment-btn" class="w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg" aria-label="Effectuer un paiement">
+              <div class="w-14 h-14 bg-blue-700 rounded-full flex items-center justify-center mx-auto mb-1 shadow-md">
+                <i class="fas fa-paper-plane text-white"></i>
+              </div>
+              <p class="text-xs font-medium">Paiement</p>
+            </button>
+          </div>
+          
+          <div class="text-center">
+            <a href="investments.html" class="w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg block" aria-label="Consulter vos investissements">
+              <div class="w-14 h-14 bg-blue-700 rounded-full flex items-center justify-center mx-auto mb-1 shadow-md">
+                <i class="fas fa-chart-line text-white"></i>
+              </div>
+              <p class="text-xs font-medium">Investir</p>
+            </a>
+          </div>
+          
+          <div class="text-center">
+            <a href="menu.html" class="w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg block" aria-label="Voir plus d'options">
+              <div class="w-14 h-14 bg-blue-700 rounded-full flex items-center justify-center mx-auto mb-1 shadow-md">
+                <i class="fas fa-th text-white"></i>
+              </div>
+              <p class="text-xs font-medium">Plus</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Premium Card - Enhanced -->
+      <section class="p-4 bg-white" aria-labelledby="card-heading">
+        <h2 id="card-heading" class="text-sm font-medium text-gray-700 mb-3">Votre Carte Premium</h2>
+        
+        <div class="premium-card rounded-xl p-4 text-white shadow-lg relative overflow-hidden">
+          <!-- Card design elements -->
+          <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10"></div>
+          <div class="absolute bottom-0 left-0 w-24 h-24 bg-white opacity-5 rounded-full -ml-10 -mb-10"></div>
+          <div class="absolute top-1/2 right-0 w-16 h-16 bg-blue-400 opacity-10 rounded-full -mr-8"></div>
+          <div class="absolute bottom-1/4 left-1/4 w-20 h-20 bg-blue-300 opacity-10 rounded-full"></div>
+          
+          <!-- Card content -->
+          <div class="flex justify-between items-start mb-6">
+            <div>
+              <p class="text-xs opacity-80">Banque du Liban</p>
+              <p class="text-sm font-bold mt-1">Carte Platine Internationale</p>
             </div>
-            <p class="text-xs">Transfert</p>
-          </button>
+            <div>
+              <i class="fab fa-cc-visa text-2xl"></i>
+            </div>
+          </div>
+          
+          <div class="mt-2 mb-4">
+            <div class="flex items-center">
+              <div class="w-12 h-1.5 bg-yellow-400 rounded-full mr-1"></div>
+              <div class="w-1.5 h-1.5 bg-yellow-400 rounded-full mr-1"></div>
+              <div class="w-1.5 h-1.5 bg-yellow-400 rounded-full mr-1"></div>
+              <div class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></div>
+            </div>
+            <p class="text-base tracking-widest mt-2">**** **** **** 8742</p>
+          </div>
+          
+          <div class="flex justify-between items-end">
+            <div>
+              <p class="text-xs opacity-80">Titulaire</p>
+              <p class="text-sm font-medium">M. GHANEM</p>
+            </div>
+            <div>
+              <p class="text-xs opacity-80">Expire</p>
+              <p class="text-sm">09/28</p>
+            </div>
+          </div>
         </div>
         
-        <div class="text-center p-2">
-          <button id="payment-btn" class="w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg" aria-label="Effectuer un paiement">
-            <div class="w-12 h-12 bg-blue-700 rounded-full flex items-center justify-center mx-auto mb-1 shadow-md">
-              <span class="text-white text-lg" aria-hidden="true">↓</span>
-            </div>
-            <p class="text-xs">Paiement</p>
+        <div class="flex justify-between mt-3">
+          <button class="text-xs text-blue-600 flex items-center focus:outline-none focus:underline" aria-label="Gérer votre carte">
+            <i class="fas fa-cog mr-1"></i> Gérer
           </button>
-        </div>
-        
-        <div class="text-center p-2">
-          <button class="w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg" aria-label="Accéder aux services">
-            <div class="w-12 h-12 bg-blue-700 rounded-full flex items-center justify-center mx-auto mb-1 shadow-md">
-              <span class="text-white text-lg" aria-hidden="true">+</span>
-            </div>
-            <p class="text-xs">Services</p>
+          <button class="text-xs text-blue-600 flex items-center focus:outline-none focus:underline" aria-label="Voir les détails de la carte">
+            <i class="fas fa-eye mr-1"></i> Détails
           </button>
-        </div>
-        
-        <div class="text-center p-2">
-          <button class="w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg" aria-label="Voir les options">
-            <div class="w-12 h-12 bg-blue-700 rounded-full flex items-center justify-center mx-auto mb-1 shadow-md">
-              <span class="text-white text-lg" aria-hidden="true">⚙</span>
-            </div>
-            <p class="text-xs">Options</p>
+          <button class="text-xs text-blue-600 flex items-center focus:outline-none focus:underline" aria-label="Bloquer votre carte">
+            <i class="fas fa-lock mr-1"></i> Bloquer
           </button>
         </div>
       </section>
@@ -139,10 +208,10 @@
       </section>
 
       <!-- Recent Transactions -->
-      <section class="p-4" aria-labelledby="transactions-heading">
+      <section class="p-4 bg-white border-t border-gray-200" aria-labelledby="transactions-heading">
         <div class="flex justify-between items-center mb-3">
           <h2 id="transactions-heading" class="text-lg font-bold text-gray-800">Transactions Récentes</h2>
-          <button class="text-xs text-blue-600 underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded" aria-label="Voir toutes les transactions">Voir tout ›</button>
+          <a href="accounts.html" class="text-xs text-blue-600 underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded" aria-label="Voir toutes les transactions">Voir tout ›</a>
         </div>
         
         <div id="transactions-list">
@@ -181,65 +250,32 @@
               <p class="text-red-600 font-bold">-$500,000.00</p>
             </div>
           </div>
-          
-          <div class="border-b border-gray-200 py-3">
-            <div class="flex justify-between">
-              <div>
-                <p class="font-medium">Rolls-Royce Motor Cars Beirut</p>
-                <p class="text-xs text-gray-500">10 Mars 2025 - 11:25</p>
-                <p class="text-xs text-gray-400">Virement bancaire #RR-25789</p>
-                <p class="text-xs text-blue-600 mt-1">Motif: Achat véhicule Phantom Series II</p>
-              </div>
-              <p class="text-red-600 font-bold">-$325,000.00</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Accounts Summary -->
-      <section class="p-4 bg-blue-50" aria-labelledby="accounts-heading">
-        <h2 id="accounts-heading" class="text-lg font-bold text-gray-800 mb-2">Vos Comptes</h2>
-        
-        <div class="bg-white rounded-lg p-3 shadow-sm mb-2">
-          <div class="flex justify-between">
-            <div>
-              <p class="font-medium text-blue-800">Compte Courant Premium</p>
-              <p class="text-xs text-gray-500">LB82 0999 7800 0012 3456 7890</p>
-            </div>
-            <p class="font-bold">$3,742,915.84</p>
-          </div>
-        </div>
-        
-        <div class="bg-white rounded-lg p-3 shadow-sm">
-          <div class="flex justify-between">
-            <div>
-              <p class="font-medium text-blue-800">Compte d'Investissement</p>
-              <p class="text-xs text-gray-500">LB82 0999 7800 0012 3456 7891</p>
-            </div>
-            <p class="font-bold">$38,996,000.00</p>
-          </div>
         </div>
       </section>
     </main>
 
     <!-- Navigation -->
-    <nav class="grid grid-cols-4 bg-blue-700 text-center p-2 text-white fixed bottom-0 w-full max-w-md" aria-label="Navigation principale">
-      <button class="p-2 focus:outline-none focus:bg-blue-600 rounded" aria-label="Accueil" aria-current="page">
-        <div class="text-xl" aria-hidden="true">⌂</div>
-        <p class="text-xs">Accueil</p>
-      </button>
-      <button class="p-2 opacity-70 focus:outline-none focus:bg-blue-600 rounded" aria-label="Comptes">
-        <div class="text-xl" aria-hidden="true">$</div>
-        <p class="text-xs">Comptes</p>
-      </button>
-      <button class="p-2 opacity-70 focus:outline-none focus:bg-blue-600 rounded" aria-label="Historique">
-        <div class="text-xl" aria-hidden="true">↺</div>
-        <p class="text-xs">Historique</p>
-      </button>
-      <button class="p-2 opacity-70 focus:outline-none focus:bg-blue-600 rounded" aria-label="Menu">
-        <div class="text-xl" aria-hidden="true">☰</div>
-        <p class="text-xs">Menu</p>
-      </button>
+    <nav class="grid grid-cols-5 bg-white text-center p-1 text-gray-600 fixed bottom-0 w-full max-w-md border-t border-gray-200 shadow-md" aria-label="Navigation principale">
+      <a href="index.html" class="p-2 focus:outline-none focus:text-blue-700 text-blue-700" aria-label="Accueil" aria-current="page">
+        <i class="fas fa-home text-lg"></i>
+        <p class="text-xs mt-1">Accueil</p>
+      </a>
+      <a href="accounts.html" class="p-2 focus:outline-none focus:text-blue-700" aria-label="Comptes">
+        <i class="fas fa-wallet text-lg"></i>
+        <p class="text-xs mt-1">Comptes</p>
+      </a>
+      <a href="payments.html" class="p-2 focus:outline-none focus:text-blue-700" aria-label="Paiements">
+        <i class="fas fa-paper-plane text-lg"></i>
+        <p class="text-xs mt-1">Paiements</p>
+      </a>
+      <a href="investments.html" class="p-2 focus:outline-none focus:text-blue-700" aria-label="Investissements">
+        <i class="fas fa-chart-line text-lg"></i>
+        <p class="text-xs mt-1">Investir</p>
+      </a>
+      <a href="menu.html" class="p-2 focus:outline-none focus:text-blue-700" aria-label="Menu">
+        <i class="fas fa-bars text-lg"></i>
+        <p class="text-xs mt-1">Menu</p>
+      </a>
     </nav>
   </div>
 
@@ -258,7 +294,7 @@
       const transactionsList = document.getElementById('transactions-list');
       
       // Current balance as a number
-      let currentBalance = 42738915.84;
+      let currentBalance = 11738592.47;
       
       // Show payment form
       paymentBtn.addEventListener('click', function() {

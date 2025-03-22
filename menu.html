@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banque du Liban - Menu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Skip to main content link for screen readers -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-blue-700 focus:text-white focus:z-50">
+    Passer au contenu principal
+  </a>
+
+  <div class="max-w-md mx-auto bg-white shadow-md min-h-screen relative pb-20">
+    <!-- Header -->
+    <header class="bg-blue-700 text-white p-4 flex items-center justify-between" role="banner">
+      <div>
+        <h1 class="text-xl font-bold">Banque du Liban</h1>
+        <p class="text-xs">Service Clientèle Premium</p>
+      </div>
+      <div class="text-right">
+        <p class="text-xs" aria-label="Date actuelle">22 Mars 2025</p>
+        <p class="text-xs" aria-label="Heure actuelle">12:54</p>
+      </div>
+    </header>
+
+    <!-- Page Title -->
+    <section class="p-4 bg-blue-50 border-b border-gray-300">
+      <h1 class="text-xl font-bold text-blue-800">Menu</h1>
+      <p class="text-xs text-gray-600">Accédez à tous les services</p>
+    </section>
+
+    <main id="main-content">
+      <!-- User Profile -->
+      <section class="p-4 bg-white border-b border-gray-200" aria-labelledby="profile-heading">
+        <div class="flex items-center mb-4">
+          <div class="w-16 h-16 bg-blue-700 rounded-full flex items-center justify-center text-white text-2xl font-bold mr-4">
+            G
+          </div>
+          <div>
+            <h2 id="profile-heading" class="text-lg font-bold text-gray-800">M. Ghanem</h2>
+            <p class="text-sm text-gray-600">Client Privilégié - Niveau Platine</p>
+            <p class="text-xs text-blue-600">ID: LBN-7842-9631</p>
+          </div>
+        </div>
+        
+        <button class="w-full px-4 py-2 bg-blue-50 text-blue-700 rounded-lg border border-blue-100 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <i class="fas fa-user-cog mr-2"></i> Gérer mon profil
+        </button>
+      </section>
+
+      <!-- Menu Options -->
+      <section class="p-4 bg-white" aria-labelledby="menu-options-heading">
+        <h2 id="menu-options-heading" class="text-lg font-bold text-gray-800 mb-3">Services</h2>
+        
+        <div class="space-y-2">
+          <a href="accounts.html" class="block p-3 bg-white rounded-lg border border-gray-200 flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-50">
+            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+              <i class="fas fa-wallet text-blue-700"></i>
+            </div>
+            <span class="font-medium">Mes comptes</span>
+            <i class="fas fa-chevron-right ml-auto text-gray-400"></i>
+          </a>
+          
+          <a href="payments.html" class="block p-3 bg-white rounded-lg border border-gray-200 flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-50">
+            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+              <i class="fas fa-paper-plane text-blue-700"></i>
+            </div>
+            <span class="font-medium">Paiements et transferts</span>
+            <i class="fas fa-chevron-right ml-auto text-gray-400"></i>
+          </a>
+          
+          <a href="investments.html" class="block p-3 bg-white rounded-lg border border-gray-200 flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-50">
+            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+              <i class="fas fa-chart-line text-blue-700"></i>
+            </div>
+            <span class="font-medium">Investissements</span>
+            <i class="fas fa-chevron-right ml-auto text-gray-400"></i>
+          </a>
+          
+          <button class="w-full p-3 bg-white rounded-lg border border-gray-200 flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-50">
+            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+              <i class="fas fa-credit-card text-blue-700"></i>
+            </div>
+            <span class="font-medium">Cartes bancaires</span>
+            <i class="fas fa-chevron-right ml-auto text-gray-400"></i>
+          </button>
+          
+          <button class="w-full p-3 bg-white rounded-lg border border-gray-200 flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-50">
+            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+              <i class="fas fa-concierge-bell text-blue-700"></i>
+            </div>
+            <span class="font-medium">Services Premium</span>
+            <i class="fas fa-chevron-right ml-auto text-gray-400"></i>
+          </button>
+          
+          <button class="w-full p-3 bg-white rounded-lg border border-gray-200 flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-50">
+            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+              <i class="fas fa-file-alt text-blue-700"></i>
+            </div>
+            <span class="font-medium">Documents et relevés</span>
+            <i class="fas fa-chevron-right ml-auto text-gray-400"></i>
+          </button>
+          
+          <button class="w-full p-3 bg-white rounded-lg border border-gray-200 flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-50">
+            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+              <i class="fas fa-headset text-blue-700"></i>
+            </div>
+            <span class="font-medium">Contacter mon conseiller</span>
+            <i class="fas fa-chevron-right ml-auto text-gray-400"></i>
+          </button>
+          
+          <button class="w-full p-3 bg-white rounded-lg border border-gray-200 flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-50">
+            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+              <i class="fas fa-cog text-blue-700"></i>
+            </div>
+            <span class="font-medium">Paramètres</span>
+            <i class="fas fa-chevron-right ml-auto text-gray-400"></i>
+          </button>
+        </div>
+      </section>
+      
+      <!-- Logout Button -->
+      <section class="p-4 bg-white border-t border-gray-200">
+        <button class="w-full px-4 py-3 bg-red-50 text-red-700 rounded-lg border border-red-100 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-red-500">
+          <i class="fas fa-sign-out-alt mr-2"></i> Déconnexion
+        </button>
+      </section>
+    </main>
+
+    <!-- Navigation -->
+    <nav class="grid grid-cols-5 bg-white text-center p-1 text-gray-600 fixed bottom-0 w-full max-w-md border-t border-gray-200 shadow-md" aria-label="Navigation principale">
+      <a href="index.html" class="p-2 focus:outline-none focus:text-blue-700" aria-label="Accueil">
+        <i class="fas fa-home text-lg"></i>
+        <p class="text-xs mt-1">Accueil</p>
+      </a>
+      <a href="accounts.html" class="p-2 focus:outline-none focus:text-blue-700" aria-label="Comptes">
+        <i class="fas fa-wallet text-lg"></i>
+        <p class="text-xs mt-1">Comptes</p>
+      </a>
+      <a href="payments.html" class="p-2 focus:outline-none focus:text-blue-700" aria-label="Paiements">
+        <i class="fas fa-paper-plane text-lg"></i>
+        <p class="text-xs mt-1">Paiements</p>
+      </a>
+      <a href="investments.html" class="p-2 focus:outline-none focus:text-blue-700" aria-label="Investissements">
+        <i class="fas fa-chart-line text-lg"></i>
+        <p class="text-xs mt-1">Investir</p>
+      </a>
+      <a href="menu.html" class="p-2 focus:outline-none focus:text-blue-700 text-blue-700" aria-label="Menu" aria-current="page">
+        <i class="fas fa-bars text-lg"></i>
+        <p class="text-xs mt-1">Menu</p>
+      </a>
+    </nav>
+  </div>
+</body>
+</html>
