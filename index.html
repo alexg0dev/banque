@@ -6,9 +6,20 @@
   <title>Banque du Liban - Accueil</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BDL Premium">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="theme-color" content="#1d4ed8">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Raleway', sans-serif;
+    }
+    
+    h1, h2, .premium-title {
+      font-family: 'Playfair Display', serif;
     }
     
     .premium-card {
@@ -113,7 +124,7 @@
           <div class="flex justify-between items-start mb-6">
             <div>
               <p class="text-xs opacity-80">Banque du Liban</p>
-              <p class="text-sm font-bold mt-1">Carte Platine Internationale</p>
+              <p class="text-sm font-bold mt-1 premium-title">Carte Platine Internationale</p>
             </div>
             <div>
               <i class="fab fa-cc-visa text-2xl"></i>
@@ -360,5 +371,18 @@
       });
     });
   </script>
+  <script>
+  // Register service worker for offline functionality
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('sw.js').then(function(registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }, function(err) {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    });
+  }
+</script>
 </body>
 </html>
+
