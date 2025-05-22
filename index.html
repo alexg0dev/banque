@@ -3,143 +3,327 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Banque du Liban - Accueil</title>
+  <title>Banque du Liban - Premium</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#1e40af">
   <meta name="apple-mobile-web-app-title" content="BDL Premium">
   <link rel="apple-touch-icon" href="icon-192.png">
-  <meta name="theme-color" content="#1d4ed8">
   <style>
     body {
-      font-family: 'Raleway', sans-serif;
+      font-family: 'Poppins', sans-serif;
     }
     
     h1, h2, .premium-title {
       font-family: 'Playfair Display', serif;
     }
     
+    .gradient-bg {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    }
+    
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .currency-toggle {
+      transition: all 0.3s ease;
+    }
+    
+    .section {
+      display: none;
+    }
+    
+    .section.active {
+      display: block;
+    }
+    
+    .nav-item.active {
+      color: #3b82f6 !important;
+    }
+    
+    .floating-card {
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
     .premium-card {
-      background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .premium-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+      transform: rotate(30deg);
+    }
+    
+    .card-chip {
+      position: relative;
+      width: 40px;
+      height: 30px;
+      background: linear-gradient(135deg, #FFD700 0%, #FFC107 100%);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    
+    .card-chip::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: rgba(0,0,0,0.2);
+    }
+    
+    .card-chip::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 1px;
+      height: 100%;
+      background: rgba(0,0,0,0.2);
+    }
+    
+    .animate-fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    
+    .card-locked {
+      filter: blur(3px);
+      pointer-events: none;
+    }
+    
+    .card-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(30, 58, 138, 0.7);
+      border-radius: inherit;
+      z-index: 10;
+    }
+    
+    .password-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+    }
+    
+    .shimmer {
+      background: linear-gradient(90deg, 
+        rgba(255,255,255,0) 0%, 
+        rgba(255,255,255,0.2) 50%, 
+        rgba(255,255,255,0) 100%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    
+    .btn-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .btn-hover:hover {
+      transform: translateY(-2px);
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 30px -12px rgba(0, 0, 0, 0.2);
+    }
+    
+    .nav-indicator {
+      position: absolute;
+      bottom: 0;
+      height: 3px;
+      width: 20%;
+      background-color: #3b82f6;
+      border-radius: 3px 3px 0 0;
+      transition: transform 0.3s ease;
+    }
+    
+    .password-input {
+      transition: all 0.3s ease;
+    }
+    
+    .password-input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
     }
   </style>
 </head>
-<body class="bg-gray-100">
-  <!-- Skip to main content link for screen readers -->
-  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-blue-700 focus:text-white focus:z-50">
-    Passer au contenu principal
-  </a>
-
-  <div class="max-w-md mx-auto bg-white shadow-md min-h-screen relative pb-20">
-    <!-- Header -->
-    <header class="bg-blue-700 text-white p-4 flex items-center justify-between" role="banner">
-      <div>
-        <h1 class="text-xl font-bold">Banque du Liban</h1>
-        <p class="text-xs">Service Clientèle Premium</p>
-      </div>
-      <div class="text-right">
-        <p class="text-xs" aria-label="Date actuelle">1 Avril 2025</p>
-        <p class="text-xs" aria-label="Heure actuelle">12:54</p>
-      </div>
-    </header>
-
-    <!-- Client Information -->
-    <section class="p-4 bg-blue-50 border-b border-gray-300" aria-labelledby="client-info">
-      <h2 id="client-info" class="sr-only">Informations du client</h2>
-      <p class="text-sm text-gray-600">Bienvenue,</p>
-      <p class="text-xl font-bold text-blue-800">M. Ghanem</p>
-      <p class="text-xs text-gray-600">Client Privilégié - Niveau Platine</p>
-      <p class="text-xs text-blue-600 mt-1">ID Client: LBN-7842-9631</p>
-    </section>
-
-    <main id="main-content">
-      <!-- Account Balance -->
-      <section class="p-6 bg-white border-b border-gray-300" aria-labelledby="balance-heading">
-        <h2 id="balance-heading" class="text-sm text-gray-600">Solde Total</h2>
-        <p id="total-balance" class="text-3xl font-bold text-blue-800">$11,062,047.09</p>
-        <div class="flex justify-between mt-2">
-          <p class="text-xs text-gray-500">Dernière mise à jour: 22/03/2025 à 12:30</p>
-          <button class="text-xs text-blue-600 underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded" aria-label="Voir les détails du solde">Détails ›</button>
+<body class="bg-blue-50">
+  <div class="max-w-md mx-auto bg-white shadow-xl min-h-screen relative pb-20">
+    
+    <!-- Home Section -->
+    <section id="home-section" class="section active">
+      <!-- Modern Header -->
+      <header class="gradient-bg text-white p-6 rounded-b-3xl">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <h1 class="text-2xl font-bold">Banque du Liban</h1>
+            <p class="text-sm opacity-90">Premium Banking</p>
+          </div>
+          <div class="text-right">
+            <p id="current-date" class="text-xs opacity-80"></p>
+            <p id="current-time" class="text-xs opacity-80"></p>
+          </div>
         </div>
-      </section>
+        
+        <!-- Currency Toggle -->
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <p class="text-sm opacity-90">Bienvenue,</p>
+            <p class="text-xl font-bold">M. Ghanem</p>
+            <p class="text-xs opacity-80">Client Privilégié - Niveau Platine</p>
+          </div>
+          <div class="glass-effect rounded-full p-2">
+            <button id="currency-toggle" class="currency-toggle text-white text-sm font-medium px-3 py-1 rounded-full">
+              USD
+            </button>
+          </div>
+        </div>
+        
+        <!-- Balance Display -->
+        <div class="glass-effect rounded-2xl p-4 mb-4">
+          <p class="text-sm opacity-90 mb-1">Solde Total</p>
+          <p id="main-balance" class="text-3xl font-bold">$6,428,271.89</p>
+          <p class="text-xs opacity-80 mt-1">Dernière mise à jour: <span id="last-update"></span></p>
+        </div>
+        
+        <!-- Currency Calculator -->
+        <div id="currency-calculator" class="glass-effect rounded-2xl p-4 hidden">
+          <p class="text-sm font-medium mb-3">Convertisseur de Devises</p>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <input type="number" id="usd-input" placeholder="USD" class="w-full p-2 rounded-lg bg-white/20 text-white placeholder-white/70 text-sm">
+            </div>
+            <div>
+              <input type="number" id="lbp-input" placeholder="LBP" class="w-full p-2 rounded-lg bg-white/20 text-white placeholder-white/70 text-sm">
+            </div>
+          </div>
+          <p class="text-xs opacity-80 mt-2 text-center">1 USD = 100,000 LBP</p>
+        </div>
+      </header>
 
       <!-- Quick Actions -->
-      <section class="p-4 bg-white border-b border-gray-300" aria-labelledby="quick-actions">
-        <h2 id="quick-actions" class="text-sm font-medium text-gray-700 mb-3">Actions Rapides</h2>
-        
-        <div class="grid grid-cols-4 gap-2">
-          <div class="text-center">
-            <button class="w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg" aria-label="Faire un transfert">
-              <div class="w-14 h-14 bg-blue-700 rounded-full flex items-center justify-center mx-auto mb-1 shadow-md">
-                <i class="fas fa-exchange-alt text-white"></i>
-              </div>
-              <p class="text-xs font-medium">Transfert</p>
-            </button>
-          </div>
+      <section class="p-6 bg-blue-50">
+        <h2 class="text-lg font-semibold text-blue-900 mb-4">Actions Rapides</h2>
+        <div class="grid grid-cols-4 gap-4">
+          <button onclick="showSection('payments')" class="flex flex-col items-center p-3 bg-white rounded-2xl hover:bg-blue-100 transition-colors shadow-md btn-hover">
+            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mb-2">
+              <i class="fas fa-paper-plane text-white"></i>
+            </div>
+            <span class="text-xs font-medium text-blue-800">Paiement</span>
+          </button>
           
-          <div class="text-center">
-            <button id="payment-btn" class="w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg" aria-label="Effectuer un paiement">
-              <div class="w-14 h-14 bg-blue-700 rounded-full flex items-center justify-center mx-auto mb-1 shadow-md">
-                <i class="fas fa-paper-plane text-white"></i>
-              </div>
-              <p class="text-xs font-medium">Paiement</p>
-            </button>
-          </div>
+          <button onclick="showSection('accounts')" class="flex flex-col items-center p-3 bg-white rounded-2xl hover:bg-blue-100 transition-colors shadow-md btn-hover">
+            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mb-2">
+              <i class="fas fa-wallet text-white"></i>
+            </div>
+            <span class="text-xs font-medium text-blue-800">Comptes</span>
+          </button>
           
-          <div class="text-center">
-            <a href="investments.html" class="w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg block" aria-label="Consulter vos investissements">
-              <div class="w-14 h-14 bg-blue-700 rounded-full flex items-center justify-center mx-auto mb-1 shadow-md">
-                <i class="fas fa-chart-line text-white"></i>
-              </div>
-              <p class="text-xs font-medium">Investir</p>
-            </a>
-          </div>
+          <button onclick="showSection('cards')" class="flex flex-col items-center p-3 bg-white rounded-2xl hover:bg-blue-100 transition-colors shadow-md btn-hover">
+            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mb-2">
+              <i class="fas fa-credit-card text-white"></i>
+            </div>
+            <span class="text-xs font-medium text-blue-800">Cartes</span>
+          </button>
           
-          <div class="text-center">
-            <a href="menu.html" class="w-full focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg block" aria-label="Voir plus d'options">
-              <div class="w-14 h-14 bg-blue-700 rounded-full flex items-center justify-center mx-auto mb-1 shadow-md">
-                <i class="fas fa-th text-white"></i>
-              </div>
-              <p class="text-xs font-medium">Plus</p>
-            </a>
-          </div>
+          <button onclick="showSection('menu')" class="flex flex-col items-center p-3 bg-white rounded-2xl hover:bg-blue-100 transition-colors shadow-md btn-hover">
+            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mb-2">
+              <i class="fas fa-th text-white"></i>
+            </div>
+            <span class="text-xs font-medium text-blue-800">Plus</span>
+          </button>
         </div>
       </section>
 
-      <!-- Premium Card - Enhanced -->
-      <section class="p-4 bg-white" aria-labelledby="card-heading">
-        <h2 id="card-heading" class="text-sm font-medium text-gray-700 mb-3">Votre Carte Premium</h2>
-        
-        <div class="premium-card rounded-xl p-4 text-white shadow-lg relative overflow-hidden">
-          <!-- Card design elements -->
+      <!-- Premium Card -->
+      <section class="px-6 mb-6">
+        <h2 class="text-lg font-semibold text-blue-900 mb-4">Votre Carte Premium</h2>
+        <div class="premium-card rounded-2xl p-6 text-white relative overflow-hidden floating-card card-hover">
           <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10"></div>
           <div class="absolute bottom-0 left-0 w-24 h-24 bg-white opacity-5 rounded-full -ml-10 -mb-10"></div>
-          <div class="absolute top-1/2 right-0 w-16 h-16 bg-blue-400 opacity-10 rounded-full -mr-8"></div>
-          <div class="absolute bottom-1/4 left-1/4 w-20 h-20 bg-blue-300 opacity-10 rounded-full"></div>
           
-          <!-- Card content -->
           <div class="flex justify-between items-start mb-6">
             <div>
               <p class="text-xs opacity-80">Banque du Liban</p>
-              <p class="text-sm font-bold mt-1 premium-title">Carte Platine Internationale</p>
+              <p class="text-sm font-bold mt-1">Carte Platine Internationale</p>
             </div>
-            <div>
-              <i class="fab fa-cc-visa text-2xl"></i>
+            <div class="flex items-center">
+              <div class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center mr-2">
+                <i class="fab fa-cc-visa text-white text-lg"></i>
+              </div>
             </div>
           </div>
           
-          <div class="mt-2 mb-4">
-            <div class="flex items-center">
-              <div class="w-12 h-1.5 bg-yellow-400 rounded-full mr-1"></div>
-              <div class="w-1.5 h-1.5 bg-yellow-400 rounded-full mr-1"></div>
-              <div class="w-1.5 h-1.5 bg-yellow-400 rounded-full mr-1"></div>
-              <div class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></div>
+          <div class="flex items-center mb-6">
+            <div class="card-chip mr-3"></div>
+            <div class="w-6 h-6 bg-white/10 rounded-full flex items-center justify-center">
+              <i class="fas fa-wifi text-white text-xs"></i>
             </div>
-            <p class="text-base tracking-widest mt-2">**** **** **** 8742</p>
+          </div>
+          
+          <div class="mb-4">
+            <p class="text-lg tracking-widest font-light">**** **** **** 8742</p>
           </div>
           
           <div class="flex justify-between items-end">
@@ -153,237 +337,1072 @@
             </div>
           </div>
         </div>
-        
-        <div class="flex justify-between mt-3">
-          <button class="text-xs text-blue-600 flex items-center focus:outline-none focus:underline" aria-label="Gérer votre carte">
-            <i class="fas fa-cog mr-1"></i> Gérer
-          </button>
-          <button class="text-xs text-blue-600 flex items-center focus:outline-none focus:underline" aria-label="Voir les détails de la carte">
-            <i class="fas fa-eye mr-1"></i> Détails
-          </button>
-          <button class="text-xs text-blue-600 flex items-center focus:outline-none focus:underline" aria-label="Bloquer votre carte">
-            <i class="fas fa-lock mr-1"></i> Bloquer
-          </button>
-        </div>
-      </section>
-
-      <!-- Payment Form (Hidden by default) -->
-      <section id="payment-form" class="hidden p-4 bg-white border-b border-gray-300" aria-labelledby="payment-heading">
-        <h2 id="payment-heading" class="text-lg font-bold text-gray-800 mb-3">Effectuer un Paiement</h2>
-        
-        <form id="payment-simulation-form">
-          <div class="mb-4">
-            <label for="recipient" class="block text-sm font-medium text-gray-700 mb-1">Destinataire</label>
-            <input type="text" id="recipient" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-          </div>
-          
-          <div class="mb-4">
-            <label for="amount" class="block text-sm font-medium text-gray-700 mb-1">Montant (USD)</label>
-            <input type="number" id="amount" min="1" step="0.01" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-          </div>
-          
-          <div class="mb-4">
-            <label for="reason" class="block text-sm font-medium text-gray-700 mb-1">Motif du paiement</label>
-            <select id="reason" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-              <option value="">Sélectionnez un motif</option>
-              <option value="Achat">Achat</option>
-              <option value="Service">Service</option>
-              <option value="Investissement">Investissement</option>
-              <option value="Don">Don</option>
-              <option value="Autre">Autre</option>
-            </select>
-          </div>
-          
-          <div class="mb-4">
-            <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description (optionnel)</label>
-            <textarea id="description" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2"></textarea>
-          </div>
-          
-          <div class="flex justify-between">
-            <button type="button" id="cancel-payment" class="px-4 py-2 bg-gray-300 text-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-gray-500">Annuler</button>
-            <button type="submit" class="px-4 py-2 bg-blue-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500">Confirmer</button>
-          </div>
-        </form>
-      </section>
-
-      <!-- Payment Confirmation (Hidden by default) -->
-      <section id="payment-confirmation" class="hidden p-4 bg-green-50 border-b border-gray-300" aria-live="polite">
-        <div class="flex items-center mb-2">
-          <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center mr-2">
-            <span class="text-white text-lg">✓</span>
-          </div>
-          <h2 class="text-lg font-bold text-green-800">Paiement Effectué</h2>
-        </div>
-        <p id="confirmation-details" class="text-sm text-gray-700 mb-2"></p>
-        <p class="text-xs text-gray-500">Référence: <span id="transaction-ref"></span></p>
-        <button id="close-confirmation" class="mt-3 px-4 py-2 bg-green-600 text-white rounded w-full focus:outline-none focus:ring-2 focus:ring-green-500">Fermer</button>
       </section>
 
       <!-- Recent Transactions -->
-      <section class="p-4 bg-white border-t border-gray-200" aria-labelledby="transactions-heading">
-        <div class="flex justify-between items-center mb-3">
-          <h2 id="transactions-heading" class="text-lg font-bold text-gray-800">Transactions Récentes</h2>
-          <a href="accounts.html" class="text-xs text-blue-600 underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded" aria-label="Voir toutes les transactions">Voir tout ›</a>
+      <section class="px-6 bg-white pt-4 pb-6 rounded-t-3xl shadow-inner">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-lg font-semibold text-blue-900">Transactions Récentes</h2>
+          <button onclick="showSection('accounts')" class="text-sm text-blue-600 font-medium">Voir tout</button>
         </div>
         
-        <div id="transactions-list">
-          <div class="border-b border-gray-200 py-3">
-            <div class="flex justify-between">
-              <div>
-                <p class="font-medium">Dépôt International - UBS Zurich</p>
-                <p class="text-xs text-gray-500">28 Mars 2025 - 09:52</p>
-                <p class="text-xs text-gray-400">Réf: INT-CH78943215</p>
-                <p class="text-xs text-blue-600 mt-1">Motif: Transfert de fonds d'investissement</p>
+        <div class="space-y-3" id="recent-transactions">
+          <div class="bg-blue-50 rounded-xl p-4 border border-blue-100 shadow-sm card-hover">
+            <div class="flex justify-between items-start">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-building text-blue-600"></i>
+                </div>
+                <div>
+                  <p class="font-medium text-blue-900">Ministère des Finances</p>
+                  <p class="text-xs text-blue-600" id="transaction-date-1"></p>
+                </div>
               </div>
-              <p class="text-green-600 font-bold">+$4,450,000</p>
+              <p class="font-bold text-green-600">+$8,500.00</p>
             </div>
           </div>
           
-          <div class="border-b border-gray-200 py-3">
-            <div class="flex justify-between">
-              <div>
-                <p class="font-medium">Four Seasons Hotel Beirut</p>
-                <p class="text-xs text-gray-500">18 Mars 2025 - 21:15</p>
-                <p class="text-xs text-gray-400">Carte Platine ****8742</p>
-                <p class="text-xs text-blue-600 mt-1">Motif: Réception d'affaires - Dîner avec investisseurs</p>
+          <div class="bg-blue-50 rounded-xl p-4 border border-blue-100 shadow-sm card-hover">
+            <div class="flex justify-between items-start">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-shopping-cart text-blue-600"></i>
+                </div>
+                <div>
+                  <p class="font-medium text-blue-900">ABC Achrafieh</p>
+                  <p class="text-xs text-blue-600" id="transaction-date-2"></p>
+                </div>
               </div>
-              <p class="text-red-600 font-bold">-$12,450.00</p>
+              <p class="font-bold text-red-600">-$345.75</p>
             </div>
           </div>
           
-          <div class="border-b border-gray-200 py-3">
-            <div class="flex justify-between">
-              <div>
-                <p class="font-medium">Transfert - Credit Suisse AG</p>
-                <p class="text-xs text-gray-500">15 Mars 2025 - 14:30</p>
-                <p class="text-xs text-gray-400">Réf: SWIFT-LB78943290</p>
-                <p class="text-xs text-blue-600 mt-1">Motif: Acquisition de parts dans société immobilière</p>
+          <div class="bg-blue-50 rounded-xl p-4 border border-blue-100 shadow-sm card-hover">
+            <div class="flex justify-between items-start">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-utensils text-blue-600"></i>
+                </div>
+                <div>
+                  <p class="font-medium text-blue-900">Em Sherif Restaurant</p>
+                  <p class="text-xs text-blue-600" id="transaction-date-3"></p>
+                </div>
               </div>
-              <p class="text-red-600 font-bold">-$500,000.00</p>
+              <p class="font-bold text-red-600">-$285.00</p>
+            </div>
+          </div>
+          
+          <div class="bg-blue-50 rounded-xl p-4 border border-blue-100 shadow-sm card-hover">
+            <div class="flex justify-between items-start">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-gas-pump text-blue-600"></i>
+                </div>
+                <div>
+                  <p class="font-medium text-blue-900">IPT Station - Dora</p>
+                  <p class="text-xs text-blue-600" id="transaction-date-4"></p>
+                </div>
+              </div>
+              <p class="font-bold text-red-600">-$95.00</p>
             </div>
           </div>
         </div>
       </section>
-    </main>
+    </section>
 
-    <!-- Navigation -->
-    <nav class="grid grid-cols-5 bg-white text-center p-1 text-gray-600 fixed bottom-0 w-full max-w-md border-t border-gray-200 shadow-md" aria-label="Navigation principale">
-      <a href="index.html" class="p-2 focus:outline-none focus:text-blue-700 text-blue-700" aria-label="Accueil" aria-current="page">
-        <i class="fas fa-home text-lg"></i>
-        <p class="text-xs mt-1">Accueil</p>
-      </a>
-      <a href="accounts.html" class="p-2 focus:outline-none focus:text-blue-700" aria-label="Comptes">
-        <i class="fas fa-wallet text-lg"></i>
-        <p class="text-xs mt-1">Comptes</p>
-      </a>
-      <a href="payments.html" class="p-2 focus:outline-none focus:text-blue-700" aria-label="Paiements">
-        <i class="fas fa-paper-plane text-lg"></i>
-        <p class="text-xs mt-1">Paiements</p>
-      </a>
-      <a href="investments.html" class="p-2 focus:outline-none focus:text-blue-700" aria-label="Investissements">
-        <i class="fas fa-chart-line text-lg"></i>
-        <p class="text-xs mt-1">Investir</p>
-      </a>
-      <a href="menu.html" class="p-2 focus:outline-none focus:text-blue-700" aria-label="Menu">
-        <i class="fas fa-bars text-lg"></i>
-        <p class="text-xs mt-1">Menu</p>
-      </a>
+    <!-- Payments Section -->
+    <section id="payments-section" class="section">
+      <div class="gradient-bg text-white p-6 rounded-b-3xl">
+        <div class="flex items-center mb-4">
+          <button onclick="showSection('home')" class="mr-4">
+            <i class="fas fa-arrow-left text-xl"></i>
+          </button>
+          <h1 class="text-xl font-bold">Paiements</h1>
+        </div>
+      </div>
+      
+      <div class="p-6 bg-blue-50">
+        <!-- Payment Form -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg mb-6">
+          <h2 class="text-lg font-semibold text-blue-900 mb-4">Nouveau Paiement</h2>
+          
+          <form id="payment-form">
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-blue-800 mb-2">Destinataire</label>
+              <input type="text" id="recipient" class="w-full p-3 border border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Nom du destinataire" required>
+            </div>
+            
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-blue-800 mb-2">Montant</label>
+              <div class="relative">
+                <input type="number" id="amount" step="0.01" class="w-full p-3 border border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="0.00" required>
+                <span class="absolute right-3 top-3 text-gray-500">USD</span>
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-blue-800 mb-2">Catégorie</label>
+              <select id="category" class="w-full p-3 border border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                <option value="">Sélectionnez une catégorie</option>
+                <option value="Alimentation">Alimentation</option>
+                <option value="Transport">Transport</option>
+                <option value="Santé">Santé</option>
+                <option value="Éducation">Éducation</option>
+                <option value="Divertissement">Divertissement</option>
+                <option value="Charité">Charité</option>
+                <option value="Factures">Factures</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </div>
+            
+            <!-- Charity Options -->
+            <div id="charity-options" class="mb-4 hidden">
+              <label class="block text-sm font-medium text-blue-800 mb-2">Organisation Caritative</label>
+              <select id="charity-org" class="w-full p-3 border border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <option value="">Sélectionnez une organisation</option>
+                <option value="Croix-Rouge Libanaise">Croix-Rouge Libanaise</option>
+                <option value="Caritas Liban">Caritas Liban</option>
+                <option value="Fondation Hariri">Fondation Hariri</option>
+                <option value="SOS Villages d'Enfants">SOS Villages d'Enfants</option>
+                <option value="Amel Association">Amel Association</option>
+                <option value="Donner Sang Compter">Donner Sang Compter</option>
+                <option value="Beit el Baraka">Beit el Baraka</option>
+                <option value="Fondation Azm & Saade">Fondation Azm & Saade</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </div>
+            
+            <div class="mb-6">
+              <label class="block text-sm font-medium text-blue-800 mb-2">Description (optionnel)</label>
+              <textarea id="description" class="w-full p-3 border border-blue-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" placeholder="Ajoutez une note..."></textarea>
+            </div>
+            
+            <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-xl font-medium hover:bg-blue-700 transition-colors btn-hover">
+              Confirmer le Paiement
+            </button>
+          </form>
+        </div>
+        
+        <!-- Recent Payments -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg">
+          <h3 class="text-lg font-semibold text-blue-900 mb-4">Paiements Récents</h3>
+          <div class="space-y-3" id="payment-history">
+            <div class="flex justify-between items-center p-3 bg-blue-50 rounded-xl border border-blue-100 card-hover">
+              <div>
+                <p class="font-medium text-blue-800">Électricité du Liban</p>
+                <p class="text-sm text-blue-600" id="payment-date-1"></p>
+              </div>
+              <p class="font-bold text-red-600">-$120.00</p>
+            </div>
+            
+            <div class="flex justify-between items-center p-3 bg-blue-50 rounded-xl border border-blue-100 card-hover">
+              <div>
+                <p class="font-medium text-blue-800">Ogero Télécom</p>
+                <p class="text-sm text-blue-600" id="payment-date-2"></p>
+              </div>
+              <p class="font-bold text-red-600">-$75.00</p>
+            </div>
+            
+            <div class="flex justify-between items-center p-3 bg-blue-50 rounded-xl border border-blue-100 card-hover">
+              <div>
+                <p class="font-medium text-blue-800">Croix-Rouge Libanaise</p>
+                <p class="text-sm text-blue-600" id="payment-date-3"></p>
+              </div>
+              <p class="font-bold text-red-600">-$500.00</p>
+            </div>
+            
+            <div class="flex justify-between items-center p-3 bg-blue-50 rounded-xl border border-blue-100 card-hover">
+              <div>
+                <p class="font-medium text-blue-800">Université Saint-Joseph</p>
+                <p class="text-sm text-blue-600" id="payment-date-4"></p>
+              </div>
+              <p class="font-bold text-red-600">-$1,200.00</p>
+            </div>
+            
+            <div class="flex justify-between items-center p-3 bg-blue-50 rounded-xl border border-blue-100 card-hover">
+              <div>
+                <p class="font-medium text-blue-800">Assurance MEDGULF</p>
+                <p class="text-sm text-blue-600" id="payment-date-5"></p>
+              </div>
+              <p class="font-bold text-red-600">-$350.00</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Accounts Section -->
+    <section id="accounts-section" class="section">
+      <div class="gradient-bg text-white p-6 rounded-b-3xl">
+        <div class="flex items-center mb-4">
+          <button onclick="showSection('home')" class="mr-4">
+            <i class="fas fa-arrow-left text-xl"></i>
+          </button>
+          <h1 class="text-xl font-bold">Mes Comptes</h1>
+        </div>
+      </div>
+      
+      <div class="p-6 bg-blue-50">
+        <!-- Account Summary -->
+        <div class="space-y-4 mb-6">
+          <div class="bg-white rounded-2xl p-6 shadow-lg card-hover">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <h3 class="font-semibold text-blue-900">Compte Courant Premium</h3>
+                <p class="text-sm text-blue-600">LB82 0999 7800 0012 3456 7890</p>
+              </div>
+              <div class="text-right">
+                <p class="font-bold text-xl text-blue-900" id="current-account-balance">$4,128,271.89</p>
+                <p class="text-sm text-green-600">+2.5% ce mois</p>
+              </div>
+            </div>
+            <div class="flex space-x-3">
+              <button class="flex-1 bg-blue-100 text-blue-600 py-2 rounded-xl text-sm font-medium btn-hover">Détails</button>
+              <button class="flex-1 bg-gray-100 text-gray-600 py-2 rounded-xl text-sm font-medium btn-hover">Relevés</button>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-2xl p-6 shadow-lg card-hover">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <h3 class="font-semibold text-blue-900">Compte d'Épargne</h3>
+                <p class="text-sm text-blue-600">LB82 0999 7800 0012 3456 7891</p>
+              </div>
+              <div class="text-right">
+                <p class="font-bold text-xl text-blue-900" id="savings-account-balance">$2,300,000.00</p>
+                <p class="text-sm text-green-600">+1.8% ce mois</p>
+              </div>
+            </div>
+            <div class="flex space-x-3">
+              <button class="flex-1 bg-blue-100 text-blue-600 py-2 rounded-xl text-sm font-medium btn-hover">Détails</button>
+              <button class="flex-1 bg-gray-100 text-gray-600 py-2 rounded-xl text-sm font-medium btn-hover">Relevés</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- All Transactions -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg">
+          <h3 class="text-lg font-semibold text-blue-900 mb-4">Toutes les Transactions</h3>
+          <div class="space-y-3">
+            <div class="flex justify-between items-center p-3 border-b border-blue-50">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-building text-blue-600"></i>
+                </div>
+                <div>
+                  <p class="font-medium text-blue-900">Ministère des Finances</p>
+                  <p class="text-xs text-blue-600 account-transaction-date"></p>
+                </div>
+              </div>
+              <p class="font-bold text-green-600">+$8,500.00</p>
+            </div>
+            
+            <div class="flex justify-between items-center p-3 border-b border-blue-50">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-shopping-cart text-blue-600"></i>
+                </div>
+                <div>
+                  <p class="font-medium text-blue-900">ABC Achrafieh</p>
+                  <p class="text-xs text-blue-600 account-transaction-date"></p>
+                </div>
+              </div>
+              <p class="font-bold text-red-600">-$345.75</p>
+            </div>
+            
+            <div class="flex justify-between items-center p-3 border-b border-blue-50">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-utensils text-blue-600"></i>
+                </div>
+                <div>
+                  <p class="font-medium text-blue-900">Em Sherif Restaurant</p>
+                  <p class="text-xs text-blue-600 account-transaction-date"></p>
+                </div>
+              </div>
+              <p class="font-bold text-red-600">-$285.00</p>
+            </div>
+            
+            <div class="flex justify-between items-center p-3 border-b border-blue-50">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-gas-pump text-blue-600"></i>
+                </div>
+                <div>
+                  <p class="font-medium text-blue-900">IPT Station - Dora</p>
+                  <p class="text-xs text-blue-600 account-transaction-date"></p>
+                </div>
+              </div>
+              <p class="font-bold text-red-600">-$95.00</p>
+            </div>
+            
+            <div class="flex justify-between items-center p-3 border-b border-blue-50">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-bolt text-blue-600"></i>
+                </div>
+                <div>
+                  <p class="font-medium text-blue-900">Électricité du Liban</p>
+                  <p class="text-xs text-blue-600 account-transaction-date"></p>
+                </div>
+              </div>
+              <p class="font-bold text-red-600">-$120.00</p>
+            </div>
+            
+            <div class="flex justify-between items-center p-3 border-b border-blue-50">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-wifi text-blue-600"></i>
+                </div>
+                <div>
+                  <p class="font-medium text-blue-900">Ogero Télécom</p>
+                  <p class="text-xs text-blue-600 account-transaction-date"></p>
+                </div>
+              </div>
+              <p class="font-bold text-red-600">-$75.00</p>
+            </div>
+            
+            <div class="flex justify-between items-center p-3 border-b border-blue-50">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-heart text-blue-600"></i>
+                </div>
+                <div>
+                  <p class="font-medium text-blue-900">Croix-Rouge Libanaise</p>
+                  <p class="text-xs text-blue-600 account-transaction-date"></p>
+                </div>
+              </div>
+              <p class="font-bold text-red-600">-$500.00</p>
+            </div>
+            
+            <div class="flex justify-between items-center p-3 border-b border-blue-50">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-graduation-cap text-blue-600"></i>
+                </div>
+                <div>
+                  <p class="font-medium text-blue-900">Université Saint-Joseph</p>
+                  <p class="text-xs text-blue-600 account-transaction-date"></p>
+                </div>
+              </div>
+              <p class="font-bold text-red-600">-$1,200.00</p>
+            </div>
+            
+            <div class="flex justify-between items-center p-3">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                  <i class="fas fa-heartbeat text-blue-600"></i>
+                </div>
+                <div>
+                  <p class="font-medium text-blue-900">Assurance MEDGULF</p>
+                  <p class="text-xs text-blue-600 account-transaction-date"></p>
+                </div>
+              </div>
+              <p class="font-bold text-red-600">-$350.00</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cards Section -->
+    <section id="cards-section" class="section">
+      <div class="gradient-bg text-white p-6 rounded-b-3xl">
+        <div class="flex items-center mb-4">
+          <button onclick="showSection('home')" class="mr-4">
+            <i class="fas fa-arrow-left text-xl"></i>
+          </button>
+          <h1 class="text-xl font-bold">Mes Cartes</h1>
+        </div>
+      </div>
+      
+      <div class="p-6 bg-blue-50">
+        <div class="bg-white rounded-2xl p-6 shadow-lg mb-6">
+          <h2 class="text-lg font-semibold text-blue-900 mb-4">Cartes Bancaires</h2>
+          
+          <!-- Main Card -->
+          <div class="premium-card rounded-xl p-5 text-white relative overflow-hidden mb-6 card-hover">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10"></div>
+            <div class="absolute bottom-0 left-0 w-24 h-24 bg-white opacity-5 rounded-full -ml-10 -mb-10"></div>
+            
+            <div class="flex justify-between items-start mb-6">
+              <div>
+                <p class="text-xs opacity-80">Banque du Liban</p>
+                <p class="text-sm font-bold mt-1">Carte Platine Internationale</p>
+              </div>
+              <div class="flex items-center">
+                <div class="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center mr-2">
+                  <i class="fab fa-cc-visa text-white text-lg"></i>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-center mb-6">
+              <div class="card-chip mr-3"></div>
+              <div class="w-6 h-6 bg-white/10 rounded-full flex items-center justify-center">
+                <i class="fas fa-wifi text-white text-xs"></i>
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <p class="text-lg tracking-widest font-light">**** **** **** 8742</p>
+            </div>
+            
+            <div class="flex justify-between items-end">
+              <div>
+                <p class="text-xs opacity-80">Titulaire</p>
+                <p class="text-sm font-medium">M. GHANEM</p>
+              </div>
+              <div>
+                <p class="text-xs opacity-80">Expire</p>
+                <p class="text-sm">09/28</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Card Actions -->
+          <div class="grid grid-cols-3 gap-3 mb-6">
+            <button class="bg-blue-100 text-blue-600 py-2 rounded-xl text-sm font-medium btn-hover">
+              <i class="fas fa-eye mr-1"></i> Détails
+            </button>
+            <button class="bg-blue-100 text-blue-600 py-2 rounded-xl text-sm font-medium btn-hover">
+              <i class="fas fa-lock mr-1"></i> Bloquer
+            </button>
+            <button class="bg-blue-100 text-blue-600 py-2 rounded-xl text-sm font-medium btn-hover">
+              <i class="fas fa-cog mr-1"></i> Gérer
+            </button>
+          </div>
+          
+          <!-- Additional Cards -->
+          <h3 class="text-md font-semibold text-blue-900 mb-3">Cartes Supplémentaires</h3>
+          <p class="text-sm text-blue-700 mb-4">9 cartes supplémentaires trouvées</p>
+          
+          <div id="locked-cards-container">
+            <div class="card-grid">
+              <!-- 9 Locked Cards -->
+              <div class="relative">
+                <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-3 text-white card-locked">
+                  <p class="text-xs font-medium mb-1">Carte Visa</p>
+                  <p class="text-xs">**** 1234</p>
+                </div>
+                <div class="card-overlay">
+                  <p class="text-xs text-center text-white font-medium">Non autorisé</p>
+                </div>
+              </div>
+              
+              <div class="relative">
+                <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-3 text-white card-locked">
+                  <p class="text-xs font-medium mb-1">Carte Visa</p>
+                  <p class="text-xs">**** 2345</p>
+                </div>
+                <div class="card-overlay">
+                  <p class="text-xs text-center text-white font-medium">Non autorisé</p>
+                </div>
+              </div>
+              
+              <div class="relative">
+                <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-3 text-white card-locked">
+                  <p class="text-xs font-medium mb-1">Carte Visa</p>
+                  <p class="text-xs">**** 3456</p>
+                </div>
+                <div class="card-overlay">
+                  <p class="text-xs text-center text-white font-medium">Non autorisé</p>
+                </div>
+              </div>
+              
+              <div class="relative">
+                <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-3 text-white card-locked">
+                  <p class="text-xs font-medium mb-1">Carte Visa</p>
+                  <p class="text-xs">**** 4567</p>
+                </div>
+                <div class="card-overlay">
+                  <p class="text-xs text-center text-white font-medium">Non autorisé</p>
+                </div>
+              </div>
+              
+              <div class="relative">
+                <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-3 text-white card-locked">
+                  <p class="text-xs font-medium mb-1">Carte Visa</p>
+                  <p class="text-xs">**** 5678</p>
+                </div>
+                <div class="card-overlay">
+                  <p class="text-xs text-center text-white font-medium">Non autorisé</p>
+                </div>
+              </div>
+              
+              <div class="relative">
+                <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-3 text-white card-locked">
+                  <p class="text-xs font-medium mb-1">Carte Visa</p>
+                  <p class="text-xs">**** 6789</p>
+                </div>
+                <div class="card-overlay">
+                  <p class="text-xs text-center text-white font-medium">Non autorisé</p>
+                </div>
+              </div>
+              
+              <div class="relative">
+                <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-3 text-white card-locked">
+                  <p class="text-xs font-medium mb-1">Carte Visa</p>
+                  <p class="text-xs">**** 7890</p>
+                </div>
+                <div class="card-overlay">
+                  <p class="text-xs text-center text-white font-medium">Non autorisé</p>
+                </div>
+              </div>
+              
+              <div class="relative">
+                <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-3 text-white card-locked">
+                  <p class="text-xs font-medium mb-1">Carte Visa</p>
+                  <p class="text-xs">**** 8901</p>
+                </div>
+                <div class="card-overlay">
+                  <p class="text-xs text-center text-white font-medium">Non autorisé</p>
+                </div>
+              </div>
+              
+              <div class="relative">
+                <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-3 text-white card-locked">
+                  <p class="text-xs font-medium mb-1">Carte Visa</p>
+                  <p class="text-xs">**** 9012</p>
+                </div>
+                <div class="card-overlay">
+                  <p class="text-xs text-center text-white font-medium">Non autorisé</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-4 text-center">
+              <p class="text-sm text-red-600 mb-2">Non autorisé - Permission de Gilbert requise</p>
+              <button id="unlock-cards-btn" class="bg-blue-600 text-white py-2 px-4 rounded-xl text-sm font-medium pulse">
+                Déverrouiller les cartes
+              </button>
+            </div>
+          </div>
+          
+          <!-- Unlocked Cards (Hidden by default) -->
+          <div id="unlocked-cards-container" class="hidden">
+            <div class="card-grid">
+              <!-- 9 Unlocked Cards with balances -->
+              <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-3 text-white shadow-md card-hover">
+                <p class="text-xs font-medium mb-1">Carte Visa</p>
+                <p class="text-xs">**** 1234</p>
+                <p class="text-xs mt-2 font-medium">Solde:</p>
+                <p class="text-sm font-bold">$125,450</p>
+              </div>
+              
+              <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-3 text-white shadow-md card-hover">
+                <p class="text-xs font-medium mb-1">Carte Visa</p>
+                <p class="text-xs">**** 2345</p>
+                <p class="text-xs mt-2 font-medium">Solde:</p>
+                <p class="text-sm font-bold">$89,750</p>
+              </div>
+              
+              <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-3 text-white shadow-md card-hover">
+                <p class="text-xs font-medium mb-1">Carte Visa</p>
+                <p class="text-xs">**** 3456</p>
+                <p class="text-xs mt-2 font-medium">Solde:</p>
+                <p class="text-sm font-bold">$215,300</p>
+              </div>
+              
+              <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-3 text-white shadow-md card-hover">
+                <p class="text-xs font-medium mb-1">Carte Visa</p>
+                <p class="text-xs">**** 4567</p>
+                <p class="text-xs mt-2 font-medium">Solde:</p>
+                <p class="text-sm font-bold">$78,920</p>
+              </div>
+              
+              <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-3 text-white shadow-md card-hover">
+                <p class="text-xs font-medium mb-1">Carte Visa</p>
+                <p class="text-xs">**** 5678</p>
+                <p class="text-xs mt-2 font-medium">Solde:</p>
+                <p class="text-sm font-bold">$145,600</p>
+              </div>
+              
+              <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-3 text-white shadow-md card-hover">
+                <p class="text-xs font-medium mb-1">Carte Visa</p>
+                <p class="text-xs">**** 6789</p>
+                <p class="text-xs mt-2 font-medium">Solde:</p>
+                <p class="text-sm font-bold">$92,450</p>
+              </div>
+              
+              <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-3 text-white shadow-md card-hover">
+                <p class="text-xs font-medium mb-1">Carte Visa</p>
+                <p class="text-xs">**** 7890</p>
+                <p class="text-xs mt-2 font-medium">Solde:</p>
+                <p class="text-sm font-bold">$187,300</p>
+              </div>
+              
+              <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-3 text-white shadow-md card-hover">
+                <p class="text-xs font-medium mb-1">Carte Visa</p>
+                <p class="text-xs">**** 8901</p>
+                <p class="text-xs mt-2 font-medium">Solde:</p>
+                <p class="text-sm font-bold">$103,750</p>
+              </div>
+              
+              <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-3 text-white shadow-md card-hover">
+                <p class="text-xs font-medium mb-1">Carte Visa</p>
+                <p class="text-xs">**** 9012</p>
+                <p class="text-xs mt-2 font-medium">Solde:</p>
+                <p class="text-sm font-bold">$156,800</p>
+              </div>
+            </div>
+            
+            <div class="mt-4 text-center">
+              <p class="text-sm text-green-600 mb-2">Cartes déverrouillées - Accès autorisé</p>
+              <p class="text-sm text-blue-600 font-medium">Solde total: $1,195,320.00</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Recent Card Transactions -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg">
+          <h3 class="text-lg font-semibold text-blue-900 mb-4">Transactions par Carte</h3>
+          <div class="space-y-3">
+            <div class="flex justify-between items-center p-3 bg-blue-50 rounded-xl card-hover">
+              <div>
+                <p class="font-medium text-blue-800">ABC Achrafieh</p>
+                <p class="text-xs text-blue-600 card-transaction-date"></p>
+              </div>
+              <p class="font-bold text-red-600">-$345.75</p>
+            </div>
+            
+            <div class="flex justify-between items-center p-3 bg-blue-50 rounded-xl card-hover">
+              <div>
+                <p class="font-medium text-blue-800">Em Sherif Restaurant</p>
+                <p class="text-xs text-blue-600 card-transaction-date"></p>
+              </div>
+              <p class="font-bold text-red-600">-$285.00</p>
+            </div>
+            
+            <div class="flex justify-between items-center p-3 bg-blue-50 rounded-xl card-hover">
+              <div>
+                <p class="font-medium text-blue-800">IPT Station - Dora</p>
+                <p class="text-xs text-blue-600 card-transaction-date"></p>
+              </div>
+              <p class="font-bold text-red-600">-$95.00</p>
+            </div>
+            
+            <div class="flex justify-between items-center p-3 bg-blue-50 rounded-xl card-hover">
+              <div>
+                <p class="font-medium text-blue-800">Pharmacie Wardieh</p>
+                <p class="text-xs text-blue-600 card-transaction-date"></p>
+              </div>
+              <p class="font-bold text-red-600">-$78.50</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu-section" class="section">
+      <div class="gradient-bg text-white p-6 rounded-b-3xl">
+        <div class="flex items-center mb-4">
+          <button onclick="showSection('home')" class="mr-4">
+            <i class="fas fa-arrow-left text-xl"></i>
+          </button>
+          <h1 class="text-xl font-bold">Menu</h1>
+        </div>
+      </div>
+      
+      <div class="p-6 bg-blue-50">
+        <!-- Profile Section -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg mb-6">
+          <div class="flex items-center mb-4">
+            <div class="w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-800 rounded-full flex items-center justify-center text-white text-2xl font-bold mr-4">
+              G
+            </div>
+            <div>
+              <h2 class="text-lg font-bold text-blue-900">M. Ghanem</h2>
+              <p class="text-sm text-blue-600">Client Privilégié - Niveau Platine</p>
+              <p class="text-xs text-blue-500">ID: LBN-7842-9631</p>
+            </div>
+          </div>
+          <button class="w-full bg-blue-100 text-blue-600 py-3 rounded-xl font-medium btn-hover">
+            <i class="fas fa-user-cog mr-2"></i> Gérer mon profil
+          </button>
+        </div>
+        
+        <!-- Menu Options -->
+        <div class="space-y-3">
+          <button onclick="showSection('accounts')" class="w-full bg-white rounded-xl p-4 shadow-lg flex items-center justify-between hover:bg-blue-50 transition-colors btn-hover">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-wallet text-blue-600"></i>
+              </div>
+              <span class="font-medium text-blue-800">Mes comptes</span>
+            </div>
+            <i class="fas fa-chevron-right text-blue-400"></i>
+          </button>
+          
+          <button onclick="showSection('payments')" class="w-full bg-white rounded-xl p-4 shadow-lg flex items-center justify-between hover:bg-blue-50 transition-colors btn-hover">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-paper-plane text-blue-600"></i>
+              </div>
+              <span class="font-medium text-blue-800">Paiements et transferts</span>
+            </div>
+            <i class="fas fa-chevron-right text-blue-400"></i>
+          </button>
+          
+          <button onclick="showSection('cards')" class="w-full bg-white rounded-xl p-4 shadow-lg flex items-center justify-between hover:bg-blue-50 transition-colors btn-hover">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-credit-card text-blue-600"></i>
+              </div>
+              <span class="font-medium text-blue-800">Cartes bancaires</span>
+            </div>
+            <i class="fas fa-chevron-right text-blue-400"></i>
+          </button>
+          
+          <button class="w-full bg-white rounded-xl p-4 shadow-lg flex items-center justify-between hover:bg-blue-50 transition-colors btn-hover">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-concierge-bell text-blue-600"></i>
+              </div>
+              <span class="font-medium text-blue-800">Services Premium</span>
+            </div>
+            <i class="fas fa-chevron-right text-blue-400"></i>
+          </button>
+          
+          <button class="w-full bg-white rounded-xl p-4 shadow-lg flex items-center justify-between hover:bg-blue-50 transition-colors btn-hover">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-headset text-blue-600"></i>
+              </div>
+              <span class="font-medium text-blue-800">Support client</span>
+            </div>
+            <i class="fas fa-chevron-right text-blue-400"></i>
+          </button>
+          
+          <button class="w-full bg-white rounded-xl p-4 shadow-lg flex items-center justify-between hover:bg-blue-50 transition-colors btn-hover">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-shield-alt text-blue-600"></i>
+              </div>
+              <span class="font-medium text-blue-800">Sécurité</span>
+            </div>
+            <i class="fas fa-chevron-right text-blue-400"></i>
+          </button>
+        </div>
+        
+        <!-- Logout -->
+        <div class="mt-6">
+          <button class="w-full bg-red-50 text-red-600 py-3 rounded-xl font-medium btn-hover">
+            <i class="fas fa-sign-out-alt mr-2"></i> Déconnexion
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Password Modal (Hidden by default) -->
+    <div id="password-modal" class="password-modal hidden">
+      <div class="bg-white rounded-2xl p-6 w-11/12 max-w-sm">
+        <h3 class="text-lg font-semibold text-blue-900 mb-2">Authentification Requise</h3>
+        <p class="text-sm text-gray-600 mb-4">Veuillez entrer le mot de passe pour accéder aux cartes supplémentaires.</p>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-blue-800 mb-2">Mot de passe</label>
+          <input type="password" id="auth-password" class="w-full p-3 border border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 password-input" placeholder="Entrez le mot de passe">
+        </div>
+        
+        <div class="flex space-x-3">
+          <button id="cancel-auth" class="flex-1 bg-gray-100 text-gray-600 py-2 rounded-xl text-sm font-medium btn-hover">
+            Annuler
+          </button>
+          <button id="submit-auth" class="flex-1 bg-blue-600 text-white py-2 rounded-xl text-sm font-medium btn-hover">
+            Valider
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-200 px-6 py-2 shadow-lg">
+      <div class="grid grid-cols-5 gap-1 relative">
+        <div id="nav-indicator" class="nav-indicator"></div>
+        <button onclick="showSection('home')" class="nav-item flex flex-col items-center py-2 text-gray-600 active" data-section="home">
+          <i class="fas fa-home text-lg mb-1"></i>
+          <span class="text-xs">Accueil</span>
+        </button>
+        <button onclick="showSection('accounts')" class="nav-item flex flex-col items-center py-2 text-gray-600" data-section="accounts">
+          <i class="fas fa-wallet text-lg mb-1"></i>
+          <span class="text-xs">Comptes</span>
+        </button>
+        <button onclick="showSection('payments')" class="nav-item flex flex-col items-center py-2 text-gray-600" data-section="payments">
+          <i class="fas fa-paper-plane text-lg mb-1"></i>
+          <span class="text-xs">Paiements</span>
+        </button>
+        <button onclick="showSection('cards')" class="nav-item flex flex-col items-center py-2 text-gray-600" data-section="cards">
+          <i class="fas fa-credit-card text-lg mb-1"></i>
+          <span class="text-xs">Cartes</span>
+        </button>
+        <button onclick="showSection('menu')" class="nav-item flex flex-col items-center py-2 text-gray-600" data-section="menu">
+          <i class="fas fa-bars text-lg mb-1"></i>
+          <span class="text-xs">Menu</span>
+        </button>
+      </div>
     </nav>
   </div>
 
   <script>
-    // Payment functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      const paymentBtn = document.getElementById('payment-btn');
-      const paymentForm = document.getElementById('payment-form');
-      const cancelPayment = document.getElementById('cancel-payment');
-      const paymentSimulationForm = document.getElementById('payment-simulation-form');
-      const paymentConfirmation = document.getElementById('payment-confirmation');
-      const closeConfirmation = document.getElementById('close-confirmation');
-      const confirmationDetails = document.getElementById('confirmation-details');
-      const transactionRef = document.getElementById('transaction-ref');
-      const totalBalance = document.getElementById('total-balance');
-      const transactionsList = document.getElementById('transactions-list');
+    // Global variables
+    let currentCurrency = 'USD';
+    let currentBalance = 6428271.89;
+    const exchangeRate = 100000; // 1 USD = 100,000 LBP
+    
+    // Date and time functions
+    function updateDateTime() {
+      const now = new Date();
       
-      // Current balance as a number
-      let currentBalance = 11738592.47;
+      // Format date
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      const dateStr = now.toLocaleDateString('fr-FR', options);
       
-      // Show payment form
-      paymentBtn.addEventListener('click', function() {
-        paymentForm.classList.remove('hidden');
+      // Format time
+      const timeStr = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+      
+      // Update elements
+      document.getElementById('current-date').textContent = dateStr;
+      document.getElementById('current-time').textContent = timeStr;
+      document.getElementById('last-update').textContent = `${dateStr} à ${timeStr}`;
+    }
+    
+    // Generate relative dates for transactions
+    function generateTransactionDates() {
+      const now = new Date();
+      
+      // Transaction dates on home page
+      document.getElementById('transaction-date-1').textContent = new Date(now.getTime() - (2 * 24 * 60 * 60 * 1000)).toLocaleDateString('fr-FR') + ' - 09:42';
+      document.getElementById('transaction-date-2').textContent = new Date(now.getTime() - (3 * 24 * 60 * 60 * 1000)).toLocaleDateString('fr-FR') + ' - 18:30';
+      document.getElementById('transaction-date-3').textContent = new Date(now.getTime() - (4 * 24 * 60 * 60 * 1000)).toLocaleDateString('fr-FR') + ' - 21:15';
+      document.getElementById('transaction-date-4').textContent = new Date(now.getTime() - (5 * 24 * 60 * 60 * 1000)).toLocaleDateString('fr-FR') + ' - 14:15';
+      
+      // Payment dates
+      document.getElementById('payment-date-1').textContent = 'Factures • ' + new Date(now.getTime() - (7 * 24 * 60 * 60 * 1000)).toLocaleDateString('fr-FR');
+      document.getElementById('payment-date-2').textContent = 'Factures • ' + new Date(now.getTime() - (8 * 24 * 60 * 60 * 1000)).toLocaleDateString('fr-FR');
+      document.getElementById('payment-date-3').textContent = 'Charité • ' + new Date(now.getTime() - (10 * 24 * 60 * 60 * 1000)).toLocaleDateString('fr-FR');
+      document.getElementById('payment-date-4').textContent = 'Éducation • ' + new Date(now.getTime() - (12 * 24 * 60 * 60 * 1000)).toLocaleDateString('fr-FR');
+      document.getElementById('payment-date-5').textContent = 'Santé • ' + new Date(now.getTime() - (17 * 24 * 60 * 60 * 1000)).toLocaleDateString('fr-FR');
+      
+      // Account transaction dates
+      const accountDates = document.querySelectorAll('.account-transaction-date');
+      for (let i = 0; i < accountDates.length; i++) {
+        const daysAgo = (i + 2) * 2;
+        accountDates[i].textContent = new Date(now.getTime() - (daysAgo * 24 * 60 * 60 * 1000)).toLocaleDateString('fr-FR') + ' - ' + 
+          (10 + i % 12).toString().padStart(2, '0') + ':' + (15 + i * 5 % 45).toString().padStart(2, '0');
+      }
+      
+      // Card transaction dates
+      const cardDates = document.querySelectorAll('.card-transaction-date');
+      for (let i = 0; i < cardDates.length; i++) {
+        const daysAgo = (i + 3);
+        cardDates[i].textContent = 'Carte **** 8742 • ' + new Date(now.getTime() - (daysAgo * 24 * 60 * 60 * 1000)).toLocaleDateString('fr-FR');
+      }
+    }
+    
+    // Section navigation
+    function showSection(sectionName) {
+      // Hide all sections
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
       });
       
-      // Cancel payment
-      cancelPayment.addEventListener('click', function() {
-        paymentForm.classList.add('hidden');
-        paymentSimulationForm.reset();
-      });
+      // Show target section
+      document.getElementById(sectionName + '-section').classList.add('active');
       
-      // Process payment
-      paymentSimulationForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const recipient = document.getElementById('recipient').value;
-        const amount = parseFloat(document.getElementById('amount').value);
-        const reason = document.getElementById('reason').value;
-        const description = document.getElementById('description').value;
-        
-        // Generate a random reference number
-        const refNumber = 'TX-' + Math.floor(Math.random() * 10000000);
-        
-        // Update balance
-        currentBalance -= amount;
-        totalBalance.textContent = '$' + currentBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        
-        // Show confirmation
-        confirmationDetails.textContent = `Paiement de $${amount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} à ${recipient} pour ${reason}`;
-        transactionRef.textContent = refNumber;
-        
-        // Add to transactions list
-        const now = new Date();
-        const dateStr = now.toLocaleDateString('fr-FR', {day: '2-digit', month: '2-digit', year: 'numeric'});
-        const timeStr = now.toLocaleTimeString('fr-FR', {hour: '2-digit', minute: '2-digit'});
-        
-        const newTransaction = document.createElement('div');
-        newTransaction.className = 'border-b border-gray-200 py-3';
-        newTransaction.innerHTML = `
-          <div class="flex justify-between">
-            <div>
-              <p class="font-medium">${recipient}</p>
-              <p class="text-xs text-gray-500">${dateStr} - ${timeStr}</p>
-              <p class="text-xs text-gray-400">Réf: ${refNumber}</p>
-              <p class="text-xs text-blue-600 mt-1">Motif: ${reason}${description ? ' - ' + description : ''}</p>
+      // Update navigation
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
+      
+      // Move nav indicator
+      const index = ['home', 'accounts', 'payments', 'cards', 'menu'].indexOf(sectionName);
+      document.getElementById('nav-indicator').style.transform = `translateX(${index * 100}%)`;
+      
+      // Add animation
+      document.getElementById(sectionName + '-section').classList.add('animate-fade-in');
+    }
+    
+    // Currency conversion
+    function updateCurrencyDisplay() {
+      const mainBalance = document.getElementById('main-balance');
+      const currentAccountBalance = document.getElementById('current-account-balance');
+      const savingsAccountBalance = document.getElementById('savings-account-balance');
+      
+      if (currentCurrency === 'USD') {
+        mainBalance.textContent = `$${currentBalance.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+        if (currentAccountBalance) {
+          currentAccountBalance.textContent = `$${(4128271.89).toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+        }
+        if (savingsAccountBalance) {
+          savingsAccountBalance.textContent = `$${(2300000.00).toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+        }
+      } else {
+        const lbpBalance = currentBalance * exchangeRate;
+        mainBalance.textContent = `${lbpBalance.toLocaleString('en-US')} LBP`;
+        if (currentAccountBalance) {
+          currentAccountBalance.textContent = `${(4128271.89 * exchangeRate).toLocaleString('en-US')} LBP`;
+        }
+        if (savingsAccountBalance) {
+          savingsAccountBalance.textContent = `${(2300000.00 * exchangeRate).toLocaleString('en-US')} LBP`;
+        }
+      }
+    }
+    
+    // Currency toggle
+    document.getElementById('currency-toggle').addEventListener('click', function() {
+      currentCurrency = currentCurrency === 'USD' ? 'LBP' : 'USD';
+      this.textContent = currentCurrency;
+      updateCurrencyDisplay();
+      
+      // Toggle calculator visibility
+      const calculator = document.getElementById('currency-calculator');
+      if (currentCurrency === 'LBP') {
+        calculator.classList.remove('hidden');
+      } else {
+        calculator.classList.add('hidden');
+      }
+    });
+    
+    // Currency calculator
+    document.getElementById('usd-input').addEventListener('input', function() {
+      const usdValue = parseFloat(this.value) || 0;
+      document.getElementById('lbp-input').value = (usdValue * exchangeRate).toLocaleString('en-US');
+    });
+    
+    document.getElementById('lbp-input').addEventListener('input', function() {
+      const lbpValue = parseFloat(this.value.replace(/,/g, '')) || 0;
+      document.getElementById('usd-input').value = (lbpValue / exchangeRate).toFixed(2);
+    });
+    
+    // Payment form
+    document.getElementById('category').addEventListener('change', function() {
+      const charityOptions = document.getElementById('charity-options');
+      if (this.value === 'Charité') {
+        charityOptions.classList.remove('hidden');
+      } else {
+        charityOptions.classList.add('hidden');
+      }
+    });
+    
+    document.getElementById('payment-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const recipient = document.getElementById('recipient').value;
+      const amount = parseFloat(document.getElementById('amount').value);
+      const category = document.getElementById('category').value;
+      const charityOrg = document.getElementById('charity-org').value;
+      const description = document.getElementById('description').value;
+      
+      // Update balance
+      currentBalance -= amount;
+      updateCurrencyDisplay();
+      
+      // Add to payment history
+      const paymentHistory = document.getElementById('payment-history');
+      const newPayment = document.createElement('div');
+      newPayment.className = 'flex justify-between items-center p-3 bg-blue-50 rounded-xl border border-blue-100 card-hover';
+      
+      const displayName = category === 'Charité' && charityOrg ? charityOrg : recipient;
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('fr-FR', {day: '2-digit', month: '2-digit', year: 'numeric'});
+      
+      newPayment.innerHTML = `
+        <div>
+          <p class="font-medium text-blue-800">${displayName}</p>
+          <p class="text-sm text-blue-600">${category} • ${dateStr}</p>
+        </div>
+        <p class="font-bold text-red-600">-$${amount.toFixed(2)}</p>
+      `;
+      
+      paymentHistory.insertBefore(newPayment, paymentHistory.firstChild);
+      
+      // Add to recent transactions on home page
+      const recentTransactions = document.getElementById('recent-transactions');
+      const newTransaction = document.createElement('div');
+      newTransaction.className = 'bg-blue-50 rounded-xl p-4 border border-blue-100 shadow-sm card-hover';
+      
+      const iconClass = category === 'Charité' ? 'fas fa-heart text-blue-600' : 
+                       category === 'Alimentation' ? 'fas fa-shopping-cart text-blue-600' :
+                       category === 'Transport' ? 'fas fa-car text-blue-600' :
+                       'fas fa-credit-card text-blue-600';
+      
+      const iconBg = 'bg-blue-100';
+      
+      newTransaction.innerHTML = `
+        <div class="flex justify-between items-start">
+          <div class="flex items-center">
+            <div class="w-10 h-10 ${iconBg} rounded-full flex items-center justify-center mr-3">
+              <i class="${iconClass}"></i>
             </div>
-            <p class="text-red-600 font-bold">-$${amount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
+            <div>
+              <p class="font-medium text-blue-900">${displayName}</p>
+              <p class="text-xs text-blue-600">${dateStr} - ${now.toLocaleTimeString('fr-FR', {hour: '2-digit', minute: '2-digit'})}</p>
+            </div>
           </div>
-        `;
-        
-        transactionsList.insertBefore(newTransaction, transactionsList.firstChild);
-        
-        // Hide form and show confirmation
-        paymentForm.classList.add('hidden');
-        paymentConfirmation.classList.remove('hidden');
-        paymentSimulationForm.reset();
-      });
+          <p class="font-bold text-red-600">-$${amount.toFixed(2)}</p>
+        </div>
+      `;
       
-      // Close confirmation
-      closeConfirmation.addEventListener('click', function() {
-        paymentConfirmation.classList.add('hidden');
-      });
+      recentTransactions.insertBefore(newTransaction, recentTransactions.firstChild);
+      
+      // Reset form
+      this.reset();
+      document.getElementById('charity-options').classList.add('hidden');
+      
+      // Show success message
+      alert('Paiement effectué avec succès!');
     });
+    
+    // Cards authentication
+    document.getElementById('unlock-cards-btn').addEventListener('click', function() {
+      document.getElementById('password-modal').classList.remove('hidden');
+    });
+    
+    document.getElementById('cancel-auth').addEventListener('click', function() {
+      document.getElementById('password-modal').classList.add('hidden');
+      document.getElementById('auth-password').value = '';
+    });
+    
+    document.getElementById('submit-auth').addEventListener('click', function() {
+      const password = document.getElementById('auth-password').value;
+      
+      if (password === 'Melisa-1234') {
+        // Show unlocked cards
+        document.getElementById('locked-cards-container').classList.add('hidden');
+        document.getElementById('unlocked-cards-container').classList.remove('hidden');
+        document.getElementById('password-modal').classList.add('hidden');
+        document.getElementById('auth-password').value = '';
+      } else {
+        alert('Mot de passe incorrect. Veuillez réessayer.');
+      }
+    });
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      updateDateTime();
+      generateTransactionDates();
+      updateCurrencyDisplay();
+      
+      // Set up nav indicator initial position
+      document.getElementById('nav-indicator').style.transform = 'translateX(0%)';
+      
+      // Update time every minute
+      setInterval(updateDateTime, 60000);
+    });
+    
+    // Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('sw.js').then(function(registration) {
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function(err) {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
   </script>
-  <script>
-  // Register service worker for offline functionality
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('sw.js').then(function(registration) {
-        console.log('ServiceWorker registration successful with scope: ', registration.scope);
-      }, function(err) {
-        console.log('ServiceWorker registration failed: ', err);
-      });
-    });
-  }
-</script>
 </body>
 </html>
-
